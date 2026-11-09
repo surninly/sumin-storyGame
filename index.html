@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#192d27" />
+  <meta name="description" content="수민의 선택을 함께 따라가는 인터랙티브 스토리 게임" />
+  <title>수민의 이야기 · 나의 속도로, 나의 길을</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="game-header">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span> 수민의 이야기 <span class="brand-subtitle">STORY GAME</span></div>
+      <div class="game-tools">
+        <button class="tool-button" id="back-button" type="button" aria-label="이전 화면으로 돌아가기" title="이전 화면으로 돌아가기" hidden>← <span>이전 화면</span></button>
+        <button class="tool-button" id="sound-button" type="button" aria-label="소리 끄기" aria-pressed="true"><span id="sound-icon" aria-hidden="true">♫</span> <span class="sound-label">소리 켜짐</span></button>
+        <button class="tool-button" id="restart-button" type="button" aria-label="처음부터 다시 시작" hidden>↻ <span>처음으로</span></button>
+        <button class="tool-button" id="fullscreen-button" type="button" aria-label="전체 화면으로 보기" aria-pressed="false">⛶ <span>전체 화면</span></button>
+      </div>
+    </header>
+    <main id="main-content">
+      <section id="welcome-screen" class="screen welcome-screen" aria-labelledby="welcome-title">
+        <div class="welcome-visual" aria-hidden="true"><div id="welcome-media" class="media-frame welcome-media"></div></div>
+        <div class="welcome-copy">
+          <span class="eyebrow">선택으로 이어지는 일곱 번의 여정</span>
+          <h1 id="welcome-title" tabindex="-1">수민의 이야기</h1>
+          <p class="welcome-subtitle">조금 다른 길도, 괜찮아.</p>
+          <div class="welcome-description">
+            <p>이 이야기는 수민이 지나온 선택과 앞으로의 계획을 따라가는 여행이야.</p>
+            <p>예상하지 못한 순간마다 새로운 길을 찾아온 수민과 함께해볼래?</p>
+          </div>
+          <button id="start-button" class="primary-button start-button" type="button"><span aria-hidden="true">▶</span> 수민의 이야기 시작하기</button>
+          <p class="welcome-hint">이야기를 읽고, 수민의 다음 걸음을 선택해 주세요.</p>
+        </div>
+      </section>
+      <section id="story-screen" class="screen story-screen" aria-labelledby="story-title" hidden>
+        <div class="journey-header">
+          <span id="chapter-label" class="eyebrow"></span>
+          <ol id="journey-progress" class="journey-progress" aria-label="이야기 진행 상황"></ol>
+        </div>
+        <div class="story-layout">
+          <div class="story-visual">
+            <div id="story-media" class="media-frame story-media"></div>
+            <div class="scene-heading"><p id="scene-caption"></p><h1 id="story-title" tabindex="-1"></h1></div>
+          </div>
+          <section id="dialogue-box" class="dialogue-box" data-phase="narrative" aria-label="대화와 선택">
+            <div class="speaker-row"><span id="speaker-name" class="speaker-name">이야기</span><span id="interaction-label">STORY</span></div>
+            <div id="narrative-area" class="narrative-area">
+              <div id="story-body" class="story-body" tabindex="-1"><p id="dialogue-text"></p></div>
+              <nav class="reader-controls" aria-label="지문 넘기기">
+                <button id="reader-prev" class="secondary-button" type="button" aria-label="이전 지문">← <span>이전</span></button>
+                <span id="page-count" class="page-count" aria-live="polite"></span>
+                <button id="reader-next" class="primary-button" type="button">계속 읽기 ▶</button>
+              </nav>
+            </div>
+            <div id="choice-area" class="choice-area" hidden>
+              <h2 id="choice-prompt" tabindex="-1"></h2>
+              <div id="choices" class="choices"></div>
+              <button id="read-again" class="read-again" type="button">↶ 이 장면의 이야기 다시 읽기</button>
+            </div>
+          </section>
+        </div>
+      </section>
+      <section id="chapter-screen" class="screen chapter-screen" aria-labelledby="chapter-intro-title" hidden>
+        <div class="chapter-card">
+          <p id="chapter-intro-label" class="chapter-intro-label"></p>
+          <span class="chapter-divider" aria-hidden="true">✦</span>
+          <h1 id="chapter-intro-title" tabindex="-1"></h1>
+        </div>
+      </section>
+      <section id="ending-screen" class="screen ending-screen" data-stage="idle" aria-label="수민의 이야기 엔딩" hidden>
+        <div id="ending-intro" class="cinematic-card" hidden>
+          <span class="cinematic-star" aria-hidden="true">✦</span>
+          <h1 id="ending-title" tabindex="-1">수민의 이야기</h1>
+          <p>나의 속도로, 나의 길을.</p>
+        </div>
+        <div id="ending-player" class="ending-player" hidden>
+          <video id="ending-video" controls playsinline preload="auto" aria-label="수민의 이야기 엔딩 영상" hidden></video>
+          <div id="ending-recovery" class="ending-recovery" hidden>
+            <p id="ending-media-note" role="status"></p>
+            <button id="ending-play" class="primary-button cinematic-button" type="button">▶ 영상 재생하기</button>
+          </div>
+        </div>
+        <div id="ending-invitation" class="cinematic-card" hidden>
+          <span class="cinematic-star" aria-hidden="true">✦</span>
+          <button id="journey-together" class="primary-button cinematic-button journey-button" type="button">앞으로의 여행도 함께하기 <span aria-hidden="true">→</span></button>
+        </div>
+        <div id="ending-finale" class="cinematic-card ending-finale" hidden>
+          <h2 id="game-end-title" lang="en" tabindex="-1">Game End</h2>
+          <button id="ending-restart" class="primary-button cinematic-button" type="button" hidden>↻ 게임 다시 시작하기</button>
+        </div>
+      </section>
+      <noscript><p class="noscript-message">게임을 진행하려면 브라우저에서 JavaScript를 활성화해 주세요.</p></noscript>
+    </main>
+    <footer class="game-footer"><span>SUMIN'S STORY</span><span>이전 ← · 다음 → · 선택 1 2 3</span></footer>
+    <p id="game-status" class="sr-only" role="status" aria-live="polite"></p>
+  </div>
+  <dialog id="restart-dialog" aria-labelledby="restart-title" aria-describedby="restart-description">
+    <span class="eyebrow">처음으로 돌아가기</span><h2 id="restart-title">처음부터 걸어볼까?</h2>
+    <p id="restart-description">지금까지의 진행을 끝내고 시작 화면으로 돌아가요.</p>
+    <form method="dialog" class="dialog-actions"><button class="secondary-button" value="cancel" autofocus>계속 이어가기</button><button class="primary-button" value="restart">처음으로</button></form>
+  </dialog>
+</body>
+</html>
