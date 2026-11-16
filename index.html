@@ -79,7 +79,14 @@
         </div>
         <div id="ending-invitation" class="cinematic-card" hidden>
           <span class="cinematic-star" aria-hidden="true">✦</span>
-          <button id="journey-together" class="primary-button cinematic-button journey-button" type="button">앞으로의 여행도 함께하기 <span aria-hidden="true">→</span></button>
+          <div class="ending-actions" role="group" aria-label="여행을 마무리하는 두 가지 선택">
+            <button id="journey-together" class="primary-button cinematic-button journey-button" type="button">앞으로의 여행도 함께하기 <span aria-hidden="true">→</span></button>
+            <button id="journey-finish" class="primary-button cinematic-button journey-button" type="button">여행 끝내기 <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+        <div id="ending-reply" class="cinematic-card ending-reply" aria-labelledby="ending-reply-text" hidden>
+          <span class="ending-speaker"><span aria-hidden="true">✦</span> 수민</span>
+          <p id="ending-reply-text" class="ending-quote" tabindex="-1"></p>
         </div>
         <div id="ending-finale" class="cinematic-card ending-finale" hidden>
           <h2 id="game-end-title" lang="en" tabindex="-1">Game End</h2>

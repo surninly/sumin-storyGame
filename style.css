@@ -123,13 +123,17 @@ main { position: relative; overflow: hidden; }
 .cinematic-button { max-width: 100%; min-height: 58px; padding: 15px 27px; background: #f1d48e; color: #203b2c; border-color: #ab8d4a; font-size: clamp(17px, 2vw, 24px); }
 .cinematic-button:hover { background: #ffe5ab; }
 .journey-button { min-height: 88px; padding: 24px 38px; border-radius: 12px; font-size: clamp(21px, 3vw, 36px); line-height: 1.5; }
-.ending-screen[data-stage="invitation"], .ending-screen[data-stage="finale"], .ending-screen[data-stage="complete"] { color: var(--ink); background: #d8d9b9; }
-#ending-invitation, .ending-finale { inset: clamp(10px, 2.5vw, 30px); border: 3px solid #7b8c66; border-radius: 15px; background: var(--cream); box-shadow: 0 4px 22px #152c2620, inset 0 0 0 3px #fffdf5; }
+.ending-screen[data-stage="invitation"], .ending-screen[data-stage="reply"], .ending-screen[data-stage="finale"], .ending-screen[data-stage="complete"] { color: var(--ink); background: #d8d9b9; }
+#ending-invitation, .ending-reply, .ending-finale { inset: clamp(10px, 2.5vw, 30px); border: 3px solid #7b8c66; border-radius: 15px; background: var(--cream); box-shadow: 0 4px 22px #152c2620, inset 0 0 0 3px #fffdf5; }
 #ending-invitation { top: auto; padding: clamp(16px, 3dvh, 28px); gap: 12px; }
 #ending-invitation .cinematic-star { color: #9c6d24; }
-#journey-together, #ending-restart { background: var(--green); color: #fffdf3; border-color: #142c21; border-radius: 8px; }
-#journey-together:hover, #ending-restart:hover { background: var(--green-dark); }
-#journey-together { min-height: 72px; padding: 20px 30px; font-size: clamp(20px, 2.4vw, 30px); }
+.ending-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; width: min(100%, 1100px); }
+#journey-together, #journey-finish, #ending-restart { background: var(--green); color: #fffdf3; border-color: #142c21; border-radius: 8px; }
+#journey-together:hover, #journey-finish:hover, #ending-restart:hover { background: var(--green-dark); }
+#journey-together, #journey-finish { min-height: 72px; padding: 20px 26px; font-size: clamp(19px, 2.2vw, 28px); }
+.ending-speaker { display: inline-flex; align-items: center; gap: 9px; color: var(--green); font-size: 17px; font-weight: 750; }
+.ending-speaker > span { color: #9c6d24; }
+#ending-reply-text { max-width: 900px; color: var(--ink); font-size: clamp(22px, 3vw, 38px); font-weight: 500; line-height: 1.85; letter-spacing: -.025em; white-space: pre-line; }
 .ending-finale { display: grid; grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr); justify-items: center; gap: 0; }
 /* 설치된 필기체 글꼴을 사용하므로 인터넷 연결 없이도 표시됩니다. */
 #game-end-title { grid-row: 2; font-family: "Segoe Script", "Apple Chancery", "URW Chancery L", "Brush Script MT", cursive; font-size: clamp(46px, 10vw, 140px); font-weight: 400; font-style: normal; line-height: 1.4; letter-spacing: -.035em; color: var(--green); white-space: nowrap; opacity: 0; transform: translateY(50dvh); }
@@ -202,6 +206,8 @@ dialog p { margin: 16px 0 25px; font-size: 16px; line-height: 1.75; }
   .cinematic-card { padding: 18px; gap: 24px; }
   .ending-finale { gap: 0; }
   .journey-button { min-height: 80px; padding: 20px 22px; }
+  .ending-actions { grid-template-columns: 1fr; gap: 10px; }
+  #journey-together, #journey-finish { min-height: 56px; padding: 13px 18px; font-size: 18px; }
 }
 /* 휴대전화 가로 화면에서는 그림과 대화창을 나란히 배치합니다. */
 @media (max-height: 520px) and (min-aspect-ratio: 1/1) {
@@ -237,6 +243,9 @@ dialog p { margin: 16px 0 25px; font-size: 16px; line-height: 1.75; }
   #game-end-title { font-size: clamp(42px, 12dvh, 68px); }
   #ending-restart { margin-top: 14px; min-height: 42px; padding: 8px 20px; font-size: 17px; }
   .journey-button { min-height: 64px; padding: 15px 24px; font-size: 24px; }
+  .ending-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  #journey-together, #journey-finish { min-height: 48px; padding: 10px 16px; font-size: 17px; }
+  #ending-reply-text { font-size: 21px; line-height: 1.7; }
 }
 @media (max-width: 360px) {
   #restart-button span { display: none; }

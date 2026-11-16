@@ -394,6 +394,11 @@ const CHAPTER_INTRO_MS = 2500;
 let chapterTimer = null;
 let chapterRun = 0;
 const ENDING_FADE_MS = 900;
+const ENDING_REPLY_MS = 3000;
+const ENDING_REPLIES = {
+  together: '"정말? 고마워.\n우리 앞으로도 친하게 지내자!"',
+  finish: '"그래? 정말 아쉽다.\n그동안의 여행을 함께해 줘서 고마워."',
+};
 const GAME_END_RISE_MS = 3000;
 let endingStage = "idle";
 let endingTimer = null;
@@ -485,6 +490,16 @@ function rememberScreen() {
 }
 
 function goBack() {
+  // 마지막 대사와 종료 연출에서도 돌아가 두 가지 답을 다시 볼 수 있습니다.
+  if (phase === "ending" && ["reply", "fade", "finale", "complete"].includes(endingStage)) {
+    cancelEndingSequence();
+    $("ending-finale").classList.remove("is-rising", "is-complete");
+    setEndingStage("invitation");
+    focusElement($("journey-together"));
+    resumeMusic();
+    $("game-status").textContent = "엔딩 선택지로 돌아왔어요. 다른 선택도 골라볼 수 있어요.";
+    return;
+  }
   const previous = screenHistory.pop();
   if (!previous) return;
   cancelChapterTransition();
@@ -797,11 +812,12 @@ function cancelEndingSequence() {
 function setEndingStage(stage) {
   endingStage = stage;
   $("ending-screen").dataset.stage = stage;
-  const retainVideoFrame = ["video", "invitation", "fade", "finale", "complete"].includes(stage);
+  const retainVideoFrame = ["video", "invitation", "reply", "fade", "finale", "complete"].includes(stage);
   $("ending-player").hidden = !retainVideoFrame;
   $("ending-video").hidden = !retainVideoFrame;
   $("ending-video").controls = stage === "video";
   $("ending-invitation").hidden = stage !== "invitation";
+  $("ending-reply").hidden = stage !== "reply";
   $("ending-finale").hidden = stage !== "finale" && stage !== "complete";
   $("ending-restart").hidden = stage !== "complete";
 }
@@ -813,6 +829,7 @@ function showEnding() {
   $("ending-finale").classList.remove("is-rising", "is-complete");
   $("ending-recovery").hidden = true;
   $("ending-media-note").textContent = "";
+  $("ending-reply-text").textContent = "";
   setEndingStage("video");
   showScreen("ending-screen");
   const video = $("ending-video");
@@ -866,11 +883,26 @@ function finishEndingVideo() {
   $("ending-recovery").hidden = true;
   resumeMusic();
   focusElement($("journey-together"));
-  $("game-status").textContent = "영상이 끝났어요. 앞으로의 여행도 함께하기 버튼을 눌러 주세요.";
+  $("game-status").textContent = "영상이 끝났어요. 앞으로의 여행도 함께하기 또는 여행 끝내기를 선택해 주세요.";
+}
+
+function chooseEnding(choice) {
+  if (phase !== "ending" || endingStage !== "invitation") return;
+  if (!Object.hasOwn(ENDING_REPLIES, choice)) return;
+  const run = endingRun;
+  $("ending-reply-text").textContent = ENDING_REPLIES[choice];
+  setEndingStage("reply");
+  focusElement($("ending-reply-text"));
+  $("game-status").textContent = ENDING_REPLIES[choice];
+  endingTimer = setTimeout(() => {
+    if (run !== endingRun || phase !== "ending" || endingStage !== "reply") return;
+    endingTimer = null;
+    showGameEnd();
+  }, ENDING_REPLY_MS);
 }
 
 function showGameEnd() {
-  if (phase !== "ending" || endingStage !== "invitation") return;
+  if (phase !== "ending" || endingStage !== "reply") return;
   const run = endingRun;
   setEndingStage("fade");
   $("ending-screen").style.setProperty("--ending-fade-duration", `${ENDING_FADE_MS}ms`);
@@ -949,7 +981,8 @@ $("ending-restart").addEventListener("click", restart);
 $("ending-video").addEventListener("error", () => {
   showVideoRecovery("영상을 불러오지 못했어요. 아래 버튼으로 다시 재생해 주세요.");
 });
-$("journey-together").addEventListener("click", showGameEnd);
+$("journey-together").addEventListener("click", () => chooseEnding("together"));
+$("journey-finish").addEventListener("click", () => chooseEnding("finish"));
 $("ending-play").addEventListener("click", () => {
   if ($("ending-video").error) $("ending-video").load();
   attemptEndingPlayback();
