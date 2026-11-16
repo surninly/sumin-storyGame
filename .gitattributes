@@ -1,1 +1,2 @@
-videos/sumin-ending.mp4 filter=lfs diff=lfs merge=lfs -text
+# Static hosting must receive the actual MP4, rather than a Git LFS pointer.
+videos/*.mp4 -filter -diff -merge -text
