@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#192d27" />
   <meta name="description" content="수민의 선택을 함께 따라가는 인터랙티브 스토리 게임" />
-  <title>수민의 이야기 · 나의 속도로, 나의 길을</title>
+  <title>수민의 이야기 〈다른 길로, 끝까지〉</title>
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
@@ -24,12 +24,11 @@
       <section id="welcome-screen" class="screen welcome-screen" aria-labelledby="welcome-title">
         <div class="welcome-visual" aria-hidden="true"><div id="welcome-media" class="media-frame welcome-media"></div></div>
         <div class="welcome-copy">
-          <span class="eyebrow">선택으로 이어지는 일곱 번의 여정</span>
+          <span class="eyebrow">선택으로 이어지는 열 개의 장면</span>
           <h1 id="welcome-title" tabindex="-1">수민의 이야기</h1>
-          <p class="welcome-subtitle">조금 다른 길도, 괜찮아.</p>
+          <p class="welcome-subtitle">다른 길로, 끝까지</p>
           <div class="welcome-description">
-            <p>이 이야기는 수민이 지나온 선택과 앞으로의 계획을 따라가는 여행이야.</p>
-            <p>예상하지 못한 순간마다 새로운 길을 찾아온 수민과 함께해볼래?</p>
+            <p>수민에게는 오래 준비한 꿈이 있었어. 예상치 못한 사고로 계획이 달라진 뒤, 수민은 어떤 선택을 하며 자기 길을 찾아갔을까?</p>
           </div>
           <button id="start-button" class="primary-button start-button" type="button"><span aria-hidden="true">▶</span> 수민의 이야기 시작하기</button>
           <p class="welcome-hint">이야기를 읽고, 수민의 다음 걸음을 선택해 주세요.</p>
@@ -71,13 +70,8 @@
         </div>
       </section>
       <section id="ending-screen" class="screen ending-screen" data-stage="idle" aria-label="수민의 이야기 엔딩" hidden>
-        <div id="ending-intro" class="cinematic-card" hidden>
-          <span class="cinematic-star" aria-hidden="true">✦</span>
-          <h1 id="ending-title" tabindex="-1">수민의 이야기</h1>
-          <p>나의 속도로, 나의 길을.</p>
-        </div>
         <div id="ending-player" class="ending-player" hidden>
-          <video id="ending-video" controls playsinline preload="auto" aria-label="수민의 이야기 엔딩 영상" hidden></video>
+          <video id="ending-video" controls playsinline preload="metadata" tabindex="-1" aria-label="수민의 이야기 엔딩 영상, 4분 12초" hidden></video>
           <div id="ending-recovery" class="ending-recovery" hidden>
             <p id="ending-media-note" role="status"></p>
             <button id="ending-play" class="primary-button cinematic-button" type="button">▶ 영상 재생하기</button>
@@ -94,7 +88,7 @@
       </section>
       <noscript><p class="noscript-message">게임을 진행하려면 브라우저에서 JavaScript를 활성화해 주세요.</p></noscript>
     </main>
-    <footer class="game-footer"><span>SUMIN'S STORY</span><span>이전 ← · 다음 → · 선택 1 2 3</span></footer>
+    <footer class="game-footer"><span>SUMIN'S STORY</span><span>이전 ← · 다음 → · 선택 A B C / 1 2 3</span></footer>
     <p id="game-status" class="sr-only" role="status" aria-live="polite"></p>
   </div>
   <dialog id="restart-dialog" aria-labelledby="restart-title" aria-describedby="restart-description">

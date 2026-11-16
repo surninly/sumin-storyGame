@@ -1,0 +1,62 @@
+[
+  {
+    "chapter": 1,
+    "title": "학교까지 버스로 40분",
+    "source": "게임_01_통학과_재활_game.jpg",
+    "path": "images/scene-1.jpg"
+  },
+  {
+    "chapter": 2,
+    "title": "오늘 할 수 있는 일",
+    "source": "게임_08_오늘_할_수_있는_일_game.jpg",
+    "path": "images/scene-8.jpg"
+  },
+  {
+    "chapter": 3,
+    "title": "내가 좋아했던 일은 뭘까?",
+    "source": "게임_02_새로운_목표_game.jpg",
+    "path": "images/scene-2.jpg"
+  },
+  {
+    "chapter": 4,
+    "title": "지원할 수 있는 학교 찾기",
+    "source": "게임_09_지원_조건_확인_game.jpg",
+    "path": "images/scene-9.jpg"
+  },
+  {
+    "chapter": 5,
+    "title": "열여덟의 원서",
+    "source": "게임_03_대학_최초_합격_game.jpg",
+    "path": "images/scene-3.jpg"
+  },
+  {
+    "chapter": 6,
+    "title": "자판부터 한 글자씩",
+    "source": "게임_04_키보드_첫걸음_game.jpg",
+    "path": "images/scene-4.jpg"
+  },
+  {
+    "chapter": 7,
+    "title": "내가 만들고 싶은 화면",
+    "source": "게임_05_프론트엔드_공부_game.jpg",
+    "path": "images/scene-5.jpg"
+  },
+  {
+    "chapter": 8,
+    "title": "어디에서 막혔을까?",
+    "source": "게임_10_오류를_다시_확인_game.jpg",
+    "path": "images/scene-10.jpg"
+  },
+  {
+    "chapter": 9,
+    "title": "졸업 뒤에 무엇부터 할까?",
+    "source": "게임_06_졸업_이후의_계획_game.jpg",
+    "path": "images/scene-6.jpg"
+  },
+  {
+    "chapter": 10,
+    "title": "앞으로도 내 길을 찾는다면",
+    "source": "게임_07_나의_다음_길_game.jpg",
+    "path": "images/scene-7.jpg"
+  }
+]

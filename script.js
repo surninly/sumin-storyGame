@@ -24,141 +24,360 @@ const AUDIO = {
   click: "audio/04_button_click.wav",
 };
 
+// ZIP game scenario: images are mapped by filename, not chapter number.
 const PROLOGUE = {
-  title: "당연했던 미래가 달라진 날",
-  image: "", // 예: "images/prologue.jpg"
-  imageAlt: "운동을 좋아하던 어린 수민의 이야기",
-  caption: "PROLOGUE · 새로운 길을 만나기 전",
-  paragraphs: [
-    "수민은 어릴 때부터 운동을 좋아했어.\n땀 흘려 노력하고, 그만큼 무언가를 이루는 순간에 보람을 느꼈지.",
-    "그렇게 군인이나 경찰을 꿈꾸며 준비하던 중학교 시절.",
-    "가산점을 받기 위해 단증을 준비하던 수민은\n낙법 연습 중 허리로 떨어지는 사고를 겪었어.",
-    "병원에서는 다리 마비로 이어질 위험이 있어\n재활에 집중해야 한다는 이야기를 들었지.",
-    "그날 이후, 당연하게 생각했던 미래가 달라지기 시작했어.",
-  ],
+  "title": "당연했던 미래가 달라진 날",
+  "image": "",
+  "imageAlt": "운동을 좋아하던 어린 수민의 이야기",
+  "caption": "PROLOGUE · 새로운 길을 만나기 전",
+  "paragraphs": [
+    "수민은 어릴 때부터 운동을 좋아했어. 땀 흘려 준비한 만큼 해냈을 때 뿌듯했고, 힘이 필요한 사람을 돕는 군인이나 경찰이 되고 싶었지.",
+    "중학교 때부터 그 꿈을 위해 단증을 준비했어. 그러던 어느 날, 낙법을 연습하다 허리로 떨어졌어. 병원에서는 지금은 재활에 집중해야 한다고 했지. 당연하다고 생각했던 미래를 처음부터 다시 생각해야 했어."
+  ]
 };
 
-// next: true → 실제 경험으로 이어지는 선택, false → 현재 장면에서 다시 선택
-// 마지막 장면은 모든 선택이 같은 엔딩으로 이어집니다.
 const SCENES = [
   {
-    title: "학교까지 40분, 어떻게 하지?",
-    image: "images/scene-1.jpg",
-    imageAlt: "학교와 버스가 보이는 정류장에서 책가방을 옆에 두고 고민하는 수민",
-    caption: "01 · 나에게 맞는 방법 찾기",
-    paragraphs: [
-      "고등학교까지는 버스로 40분.",
-      "수민에게는 매일 학교에 가는 일도 큰 부담이 됐어.\n학교생활도 이어가고 싶고, 재활에도 집중해야 하는데……",
+    "title": "학교까지 버스로 40분",
+    "image": "images/scene-1.jpg",
+    "sourceImage": "게임_01_통학과_재활_game.jpg",
+    "imageAlt": "학교까지 버스로 40분 - 수민의 이야기",
+    "caption": "01 · 학교까지 버스로 40분",
+    "paragraphs": [
+      "학교에 계속 다니고 싶었지만, 매일 버스로 40분을 이동하는 일도 몸에 부담이 됐어. 재활과 공부를 함께 이어가려면 무엇부터 결정해야 할까?"
     ],
-    prompt: "어떻게 해야 할까?",
-    choices: [
-      { icon: "🎒", text: "졸업은 해야지… 일단 계속 다녀보자.", feedback: "학교에 다니고 싶은 마음은 컸지만, 통학과 재활을 함께 이어가기는 버거웠어. 지금 수민에게 맞는 방법을 다시 찾아보자.", next: false },
-      { icon: "🚪", text: "자퇴하면 공부도 여기서 끝이겠지.", feedback: "학교를 떠나더라도 배우고 싶은 마음은 남아 있었어. 학교 밖에서 공부를 이어갈 방법은 없을까?", next: false },
-      { icon: "📖", text: "먼저 재활하자. 공부는 검정고시로 이어가면 돼.", feedback: "수민은 고등학교를 자퇴하고 재활에 집중하기로 했어. 학업도 새로운 방법으로 이어가기로 했지.", next: true },
-    ],
+    "prompt": "재활과 공부를 함께 이어가려면 무엇부터 결정해야 할까?",
+    "choices": [
+      {
+        "letter": "A",
+        "icon": "",
+        "text": "지금 시간표대로 다녀볼래.",
+        "feedback": "학교생활을 계속할 수는 있어. 매일 통학해야 하는 부담도 그대로라서 재활에 집중할 시간을 마련하기 어려워.",
+        "next": false
+      },
+      {
+        "letter": "B",
+        "icon": "",
+        "text": "재활을 먼저 챙기고 공부할 방법을 찾아볼래.",
+        "feedback": "수민은 자퇴하고 재활에 집중하기로 했어. 공부를 이어갈 수 있는 방법으로 검정고시를 생각하기 시작했지.",
+        "next": true
+      },
+      {
+        "letter": "C",
+        "icon": "",
+        "text": "학교와 공부를 모두 그만둘래.",
+        "feedback": "통학 걱정은 줄었지만, 앞으로 무엇을 배우고 싶은지에 대한 답은 아직 남아 있어.",
+        "next": false
+      }
+    ]
   },
   {
-    title: "사라진 꿈 다음에는 뭐가 있을까?",
-    image: "images/scene-2.jpg",
-    imageAlt: "햇빛이 들어오는 창가 책상에서 노트북을 보며 새로운 목표를 떠올리는 수민",
-    caption: "02 · 꿈의 이유를 돌아보기",
-    paragraphs: [
-      "그렇게 약 6개월이 흘렀어.",
-      "오랫동안 준비하던 꿈이 한순간에 사라졌다는 생각에\n많이 우울했지.",
-      "그러던 어느 날, 수민은 자신에게 물었어.",
+    "title": "오늘 할 수 있는 일",
+    "image": "images/scene-8.jpg",
+    "sourceImage": "게임_08_오늘_할_수_있는_일_game.jpg",
+    "imageAlt": "오늘 할 수 있는 일 - 수민의 이야기",
+    "caption": "02 · 오늘 할 수 있는 일",
+    "paragraphs": [
+      "오래 준비한 꿈이 무너진 뒤, 수민은 약 6개월 동안 마음이 무거웠어. 앞으로의 일을 한꺼번에 생각하면 어디서부터 시작해야 할지 더 막막했지. 지금 할 수 있는 일 하나를 골라보자."
     ],
-    prompt: "“나는 왜 군인이나 경찰이 되고 싶었을까?”",
-    choices: [
-      { icon: "⏳", text: "예전 계획으로 돌아갈 수 있을 때까지 기다릴래.", feedback: "예전의 꿈은 여전히 소중했어. 그러면서도 생각했지. ‘기다리는 동안, 지금의 내가 시작할 수 있는 일은 없을까?’", next: false },
-      { icon: "💻", text: "기술을 배워서 사람들을 도울 수도 있지 않을까?", feedback: "수민이 좋아했던 건 노력해서 무언가를 이루고, 누군가에게 도움이 되는 일이었어. ‘그렇다면 기술로도 할 수 있겠네!’ 새로운 목표가 생겼어.", next: true },
-      { icon: "🌧️", text: "운동을 못 하면 내가 잘할 수 있는 건 없잖아….", feedback: "운동을 멈춰야 했지만, 끝까지 노력하던 끈질김은 수민 안에 남아 있었어. 그 힘을 다른 곳에 써볼 수 있지 않을까?", next: false },
-    ],
+    "prompt": "지금 할 수 있는 일 하나를 골라보자.",
+    "choices": [
+      {
+        "letter": "A",
+        "icon": "",
+        "text": "앞으로의 계획을 오늘 전부 정할래.",
+        "feedback": "결정할 일이 한꺼번에 떠올라서 손이 멈췄어. 오늘 시작할 수 있는 일부터 줄여 보면 어떨까?",
+        "next": false
+      },
+      {
+        "letter": "B",
+        "icon": "",
+        "text": "마음이 괜찮아질 때까지 결정을 미룰래.",
+        "feedback": "쉬어 가는 시간도 필요했어. 조금 숨을 돌린 뒤, 지금 살펴볼 수 있는 것 한 가지를 골라보자.",
+        "next": false
+      },
+      {
+        "letter": "C",
+        "icon": "",
+        "text": "지금 할 수 있는 일 한 가지부터 생각할래.",
+        "feedback": "수민은 자신이 좋아했던 일부터 떠올렸어. 무엇을 좋아했는지 알면, 지금의 상황에서 할 수 있는 일도 찾아볼 수 있을 것 같았지.",
+        "next": true
+      }
+    ]
   },
   {
-    title: "열여덟의 지원, 열아홉의 시작",
-    image: "images/scene-3.jpg",
-    imageAlt: "대학 건물이 보이는 창가에서 합격을 상징하는 봉투를 들고 기뻐하는 수민",
-    caption: "03 · 배움을 향한 새로운 시작",
-    paragraphs: [
-      "검정고시를 준비한 수민은\n18살에 고등학교 졸업 학력을 갖췄어.",
-      "점수도 생각보다 괜찮았지!",
-      "이제 기술을 배울 수 있는 대학을 찾아볼 차례야.",
-      "지원 조건과 전공을 살펴보던 수민의 눈에\n경민대학교 컴퓨터소프트웨어과가 들어왔어.",
+    "title": "내가 좋아했던 일은 뭘까?",
+    "image": "images/scene-2.jpg",
+    "sourceImage": "게임_02_새로운_목표_game.jpg",
+    "imageAlt": "내가 좋아했던 일은 뭘까? - 수민의 이야기",
+    "caption": "03 · 내가 좋아했던 일은 뭘까?",
+    "paragraphs": [
+      "수민은 예전에 꿨던 꿈을 다시 떠올렸어.\n‘나는 왜 그렇게 군인이나 경찰이 되고 싶었을까?’",
+      "운동이 좋았던 걸까? 누군가를 지켜주고 싶었던 걸까?\n지금 당장 몸을 쓰는 일은 어렵지만, 그때의 마음까지 버리고 싶진 않았어."
     ],
-    prompt: "어떤 선택을 해볼까?",
-    choices: [
-      { icon: "🏫", text: "경민대학교 컴퓨터소프트웨어과에 지원해보자!", feedback: "18살 수민이 낸 원서의 결과는… 최초 합격! 그리고 이듬해, 19살부터 수민의 대학 생활이 시작됐어.", next: true },
-      { icon: "😥", text: "지원할 곳 찾기가 어렵네… 대학은 포기할까?", feedback: "조건을 살펴보는 일부터 쉽지 않았어. 그래도 기술을 배우고 싶은 마음은 남아 있었지. 조금만 더 찾아보자.", next: false },
-      { icon: "🎲", text: "전공은 상관없어. 들어갈 수 있는 곳부터 가자.", feedback: "원서를 쓰려던 수민의 손이 멈췄어. ‘나는 기술을 배워서 사람을 돕고 싶었던 거잖아.’ 배우고 싶은 내용을 먼저 확인해보자.", next: false },
-    ],
+    "prompt": "‘그 꿈에서 내가 정말 좋아했던 건 뭐였지?’",
+    "choices": [
+      {
+        "letter": "A",
+        "icon": "",
+        "text": "그런 건 다 모르겠고, 좀 쉴래. 뭐라도 되겠지.",
+        "feedback": "잠깐 쉬는 건 괜찮아. 수민에게도 쉬는 시간은 필요했어. 다만 ‘뭐라도 되겠지’ 하고 기다리기만 해서는, 뭘 하고 싶은지 알 수 없었지. 그 꿈이 왜 좋았는지부터 다시 생각해볼까?",
+        "next": false
+      },
+      {
+        "letter": "B",
+        "icon": "",
+        "text": "몸 쓰는 게 좋았던 거야. 무조건 몸 쓰는 직업을 고를래.",
+        "feedback": "몸을 움직이는 게 좋았던 건 맞아. 그런데 지금은 허리 때문에 재활부터 해야 하잖아. 꼭 몸을 쓰는 일이어야만 할까? 그 일을 하면서 어떤 순간이 가장 좋았는지 다시 떠올려보자.",
+        "next": false
+      },
+      {
+        "letter": "C",
+        "icon": "",
+        "text": "내 힘으로 사람 돕는 게 좋았던 거잖아. 다른 방법은 없을까?",
+        "feedback": "‘맞아. 내가 할 수 있는 걸로 사람을 돕는 게 좋았던 거야. 그럼 기술을 배워서 도울 수도 있겠네!’ 수민은 그렇게 새 목표를 찾았어. 대학에서 기술을 배워보려고 검정고시부터 준비했고, 열여덟에 합격했지.",
+        "next": true
+      }
+    ]
   },
   {
-    title: "코딩보다 키보드가 더 어려운데요?",
-    image: "images/scene-4.jpg",
-    imageAlt: "컴퓨터실에서 키보드를 한 글자씩 눌러보며 자판을 익히는 수민",
-    caption: "04 · 작은 연습이 쌓이는 시간",
-    paragraphs: [
-      "19살에 시작한 대학 생활.\n첫 1년은 쉽지 않았어.",
-      "집에 컴퓨터나 노트북이 없었던 수민은\n컴퓨터를 사용할 기회가 많지 않았거든.",
-      "친구들이 코드를 작성할 때,\n수민은 자판과 기본적인 컴퓨터 조작부터 익혀야 했어.",
+    "title": "지원할 수 있는 학교 찾기",
+    "image": "images/scene-9.jpg",
+    "sourceImage": "게임_09_지원_조건_확인_game.jpg",
+    "imageAlt": "지원할 수 있는 학교 찾기 - 수민의 이야기",
+    "caption": "04 · 지원할 수 있는 학교 찾기",
+    "paragraphs": [
+      "검정고시로 고등학교 졸업 학력을 갖췄지만, 당시 알아보던 대학 중 지원할 수 있는 곳은 많지 않았어. 수민은 지원 자격과 배우고 싶은 전공을 어떻게 확인해 볼까?"
     ],
-    prompt: "“이런 기본적인 것도 느린데… 내가 개발을 할 수 있을까?”",
-    choices: [
-      { icon: "🏳️", text: "시작부터 이렇게 차이 나면 따라잡기 어렵겠지….", feedback: "오늘도 남들보다 오래 걸렸어. 하지만 아직 익숙해질 시간도, 충분히 연습할 기회도 남아 있어. 작은 것부터 다시 해보자.", next: false },
-      { icon: "👀", text: "친구들이 하는 걸 보고 따라 하면 되겠지?", feedback: "설명을 들을 때는 알 것 같았는데, 혼자 해보려니 다시 막혔어. 작은 기능 하나라도 직접 해보는 시간이 필요했지.", next: false },
-      { icon: "⌨️", text: "느리면 더 해보지 뭐. 하나씩 익혀보자!", feedback: "자판 연습부터 작은 기능 구현까지. 수민은 막히는 부분을 하나씩 붙잡았어. 시간이 걸렸지만, 직접 해낼 수 있는 일이 조금씩 늘어났지.", next: true },
-    ],
+    "prompt": "수민은 지원 자격과 배우고 싶은 전공을 어떻게 확인해 볼까?",
+    "choices": [
+      {
+        "letter": "A",
+        "icon": "",
+        "text": "이름이 익숙한 학교부터 원서를 넣을래.",
+        "feedback": "마음이 가는 학교라도 지원 자격과 전공을 먼저 확인해야 원서를 낼 수 있어.",
+        "next": false
+      },
+      {
+        "letter": "B",
+        "icon": "",
+        "text": "지원 자격과 전공을 하나씩 확인할래.",
+        "feedback": "수민은 자신이 지원할 수 있는 학교를 추려 봤어. 그중 기술을 배울 수 있는 경민대학교 컴퓨터소프트웨어과가 눈에 들어왔지.",
+        "next": true
+      },
+      {
+        "letter": "C",
+        "icon": "",
+        "text": "선택지가 적으니 이번 지원은 미룰래.",
+        "feedback": "잠시 결정을 미룰 수는 있어. 남아 있는 선택지를 살펴보면 지금 가능한 방향이 더 분명해질 거야.",
+        "next": false
+      }
+    ]
   },
   {
-    title: "내가 만들고 싶은 건 화면인데!",
-    image: "images/scene-5.jpg",
-    imageAlt: "노트북과 휴대전화의 화면을 보며 시계와 화면 설계 노트를 곁에 두고 공부하는 수민",
-    caption: "05 · 좋아하는 것을 위한 두 시간",
-    paragraphs: [
-      "조금씩 개발에 익숙해지면서\n좋아하는 분야도 생겼어.",
-      "“나는 사용자가 직접 보는 화면을 만드는 게 재미있어!”",
-      "그런데 학과 수업은 백엔드 관련 내용이 많았어.",
+    "title": "열여덟의 원서",
+    "image": "images/scene-3.jpg",
+    "sourceImage": "게임_03_대학_최초_합격_game.jpg",
+    "imageAlt": "열여덟의 원서 - 수민의 이야기",
+    "caption": "05 · 열여덟의 원서",
+    "paragraphs": [
+      "지원 자격을 확인했고, 배우고 싶은 내용도 찾았어. 원서를 넣는 일은 여전히 떨리지만 수민에게는 선택할 근거가 생겼지. 이제 어떻게 할까?"
     ],
-    prompt: "프론트엔드를 더 배우고 싶은 수민은 어떻게 했을까?",
-    choices: [
-      { icon: "📚", text: "학교에서 배우는 내용만 열심히 따라가자.", feedback: "수업을 통해 배운 것은 많아졌어. 직접 화면을 만들고 싶은 마음도 계속 남았지. 그 마음을 행동으로 옮겨볼까?", next: false },
-      { icon: "🕑", text: "학교 공부도 하고, 하루 2시간은 프론트엔드를 공부하자.", feedback: "수민은 학교 공부와 함께 JavaScript, React, Flutter를 따로 공부하기 시작했어. 조금씩 직접 만들어보는 공부는 지금도 계속되고 있어.", next: true },
-      { icon: "🔥", text: "학교 공부는 접어두고 프론트엔드만 공부할래!", feedback: "화면을 만드는 건 즐거웠어. 그런데 미뤄둔 과제와 시험 준비가 쌓이기 시작했지. 두 가지를 함께 이어갈 방법을 찾아보자.", next: false },
-    ],
+    "prompt": "이제 어떻게 할까?",
+    "choices": [
+      {
+        "letter": "A",
+        "icon": "",
+        "text": "지원하기 쉬운 전공부터 고를래.",
+        "feedback": "지원할 곳을 정할 수는 있지만, 수민이 배우고 싶은 기술을 익힐 수 있는지 한 번 더 살펴볼 필요가 있어.",
+        "next": false
+      },
+      {
+        "letter": "B",
+        "icon": "",
+        "text": "합격할 자신이 생길 때까지 기다릴래.",
+        "feedback": "결과가 걱정되는 건 자연스러워. 이미 확인한 자격과 배우고 싶은 내용을 기준으로 지금 결정을 내려보자.",
+        "next": false
+      },
+      {
+        "letter": "C",
+        "icon": "",
+        "text": "경민대학교 컴퓨터소프트웨어과에 지원할래.",
+        "feedback": "18살 수민은 원서를 냈고 최초 합격했어. 이듬해, 19살부터 대학 생활이 시작됐어!",
+        "next": true
+      }
+    ]
   },
   {
-    title: "졸업장을 먼저? 취업을 먼저?",
-    image: "images/scene-6.jpg",
-    imageAlt: "취업 가방, 저금통, 재활 운동, 학사모를 이어 그린 노트로 앞으로의 순서를 계획하는 수민",
-    caption: "06 · 원하는 미래의 순서 정하기",
-    paragraphs: [
-      "어느덧 3학년.",
-      "졸업을 앞둔 수민에게 또 하나의 고민이 찾아왔어.",
-      "4학년까지 공부해서 학사 학위를 받고 싶었지만,\n앞으로 필요할 수 있는 허리 수술과 재활,\n경제적인 준비도 생각해야 했지.",
+    "title": "자판부터 한 글자씩",
+    "image": "images/scene-4.jpg",
+    "sourceImage": "게임_04_키보드_첫걸음_game.jpg",
+    "imageAlt": "자판부터 한 글자씩 - 수민의 이야기",
+    "caption": "06 · 자판부터 한 글자씩",
+    "paragraphs": [
+      "대학 첫해에는 자판에서 글자 하나를 찾는 일부터 낯설었어. 친구들이 코드를 쓰는 동안 수민은 컴퓨터의 기본 조작부터 익혀야 했지. 어디서부터 연습하면 좋을까?"
     ],
-    prompt: "“내가 원하는 것들을 어떤 순서로 이루면 좋을까?”",
-    choices: [
-      { icon: "🛠️", text: "먼저 취업을 준비하고, 이후에 학사 공부를 이어가자.", feedback: "수민은 3학년 졸업 후 부트캠프에서 취업을 준비할 계획을 세웠어. 취업해서 2~3년간 돈을 모으고, 이후 수술과 재활 시기에 학사 공부를 이어가고 싶어 해.", next: true },
-      { icon: "🎓", text: "일단 4학년부터 가자! 다른 문제는 나중에 생각할래.", feedback: "학사 학위를 받고 싶은 마음은 분명했어. 이제 시간과 비용, 수술과 재활 계획도 함께 놓고 순서를 생각해볼 차례야.", next: false },
-      { icon: "🌀", text: "생각할 게 너무 많아… 아직 아무것도 정하지 않을래.", feedback: "고민이 한꺼번에 밀려왔어. 당장 모든 답을 정하기 어렵다면, 졸업 후 첫걸음부터 생각해보는 건 어떨까?", next: false },
-    ],
+    "prompt": "어디서부터 연습하면 좋을까?",
+    "choices": [
+      {
+        "letter": "A",
+        "icon": "",
+        "text": "기본 조작부터 익히고 작은 예제를 직접 해볼래.",
+        "feedback": "자판을 찾고 파일을 열고, 한 줄씩 실행해 봤어. 시간이 걸렸지만 수민이 혼자 할 수 있는 일이 조금씩 늘어났지.",
+        "next": true
+      },
+      {
+        "letter": "B",
+        "icon": "",
+        "text": "친구가 만든 완성 예제부터 따라 쓸래.",
+        "feedback": "완성된 모양은 볼 수 있었지만, 혼자 다시 하려니 어디에서 막혔는지 알기 어려웠어.",
+        "next": false
+      },
+      {
+        "letter": "C",
+        "icon": "",
+        "text": "곧바로 더 어려운 과제로 넘어갈래.",
+        "feedback": "한꺼번에 익힐 내용이 많아서 막힌 이유를 찾기 어려워졌어. 연습할 범위를 조금 줄여 볼까?",
+        "next": false
+      }
+    ]
   },
   {
-    title: "그런데, 또 계획이 바뀌면?",
-    image: "images/scene-7.jpg",
-    imageAlt: "붉은 가방을 메고 햇빛이 비치는 굽이진 초록 들판의 길을 걸어가는 수민",
-    caption: "07 · 다음 걸음을 위한 한마디",
-    paragraphs: [
-      "여기까지 온 수민은 이제 알아.",
-      "처음 세운 계획대로만 인생이 흘러가지는 않는다는 걸.\n앞으로도 예상하지 못한 일이 생길 수 있다는 걸.",
+    "title": "내가 만들고 싶은 화면",
+    "image": "images/scene-5.jpg",
+    "sourceImage": "게임_05_프론트엔드_공부_game.jpg",
+    "imageAlt": "내가 만들고 싶은 화면 - 수민의 이야기",
+    "caption": "07 · 내가 만들고 싶은 화면",
+    "paragraphs": [
+      "개발에 익숙해지면서 사용자가 직접 보는 화면을 만드는 일이 재미있어졌어. 학교에서는 백엔드를 주로 배웠지. 수민은 프론트엔드를 어떻게 더 배워볼까?"
     ],
-    prompt: "그때의 수민에게 어떤 말을 해주고 싶어?",
-    choices: [
-      { icon: "🧭", text: "방향이 바뀌면, 새로운 길을 찾아가면 돼.", feedback: "군인과 경찰을 꿈꾸던 마음은 기술로 사람을 돕겠다는 목표로 이어졌어. 앞으로도 수민은 자신에게 맞는 길을 찾아갈 거야.", next: true },
-      { icon: "🐢", text: "조금 늦어져도, 내 속도로 계속 가면 돼.", feedback: "자판 하나를 익히는 데도 시간이 필요했던 수민. 그렇게 쌓은 작은 노력들이 여기까지 데려왔어. 다음 걸음도 하나씩 내디디면 돼.", next: true },
-      { icon: "💪", text: "막히면 다시 해보자. 그게 내가 잘하는 거잖아!", feedback: "수민의 가장 큰 장점은 끈질김. 계획을 다시 세워야 하는 순간에도, 목표를 향해 도전하는 힘은 수민 안에 남아 있어.", next: true },
-    ],
+    "prompt": "수민은 프론트엔드를 어떻게 더 배워볼까?",
+    "choices": [
+      {
+        "letter": "A",
+        "icon": "",
+        "text": "수업에서 관련 내용을 만날 때까지 기다릴래.",
+        "feedback": "학교 공부는 계속할 수 있어. 관심 있는 화면을 직접 만들어 볼 시간은 스스로 마련해야 했어.",
+        "next": false
+      },
+      {
+        "letter": "B",
+        "icon": "",
+        "text": "학교 공부와 별도로 하루 두 시간을 써볼래.",
+        "feedback": "수민은 자바스크립트, 리액트, 플러터를 따로 공부하며 작은 화면을 만들어 봤어. 그 공부는 지금도 이어지고 있어.",
+        "next": true
+      },
+      {
+        "letter": "C",
+        "icon": "",
+        "text": "이번 주 안에 세 가지를 전부 익힐래.",
+        "feedback": "의욕은 컸지만 무엇부터 시작할지 정하기가 어려웠어. 꾸준히 해볼 수 있는 분량으로 나눠 보자.",
+        "next": false
+      }
+    ]
   },
+  {
+    "title": "어디에서 막혔을까?",
+    "image": "images/scene-10.jpg",
+    "sourceImage": "게임_10_오류를_다시_확인_game.jpg",
+    "imageAlt": "어디에서 막혔을까? - 수민의 이야기",
+    "caption": "08 · 어디에서 막혔을까?",
+    "paragraphs": [
+      "작은 화면을 만드는 중이야. 버튼을 눌러도 다음 화면이 열리지 않아. 같은 버튼을 몇 번 눌러 봐도 달라지는 게 없네. 수민은 무엇을 확인해 볼까?"
+    ],
+    "prompt": "수민은 무엇을 확인해 볼까?",
+    "choices": [
+      {
+        "letter": "A",
+        "icon": "",
+        "text": "클릭과 화면 연결을 하나씩 확인해 볼래.",
+        "feedback": "클릭은 들어갔지만 다음 화면으로 이어지는 연결이 빠져 있었어. 그 부분을 연결하고 다시 실행하니 버튼이 작동했지!",
+        "next": true
+      },
+      {
+        "letter": "B",
+        "icon": "",
+        "text": "프로젝트 전체를 처음부터 다시 만들래.",
+        "feedback": "처음부터 만들 수는 있지만, 어디서 막혔는지 모르면 같은 문제가 다시 나올 수 있어.",
+        "next": false
+      },
+      {
+        "letter": "C",
+        "icon": "",
+        "text": "일단 버튼만 감추고 넘어갈래.",
+        "feedback": "화면에서는 버튼이 사라졌지만 다음 화면으로 갈 방법도 함께 사라졌어. 필요한 동작을 어떻게 살릴지 다시 확인해 보자.",
+        "next": false
+      }
+    ]
+  },
+  {
+    "title": "졸업 뒤에 무엇부터 할까?",
+    "image": "images/scene-6.jpg",
+    "sourceImage": "게임_06_졸업_이후의_계획_game.jpg",
+    "imageAlt": "졸업 뒤에 무엇부터 할까? - 수민의 이야기",
+    "caption": "09 · 졸업 뒤에 무엇부터 할까?",
+    "paragraphs": [
+      "3학년 졸업을 앞두고, 수민은 학사 공부를 더 하고 싶었어. 앞으로의 허리 수술과 재활, 비용도 준비해야 했지. 원하는 일들을 어떤 순서로 할까?"
+    ],
+    "prompt": "원하는 일들을 어떤 순서로 할까?",
+    "choices": [
+      {
+        "letter": "A",
+        "icon": "",
+        "text": "학사 과정부터 신청하고 이후 계획을 짤래.",
+        "feedback": "공부를 먼저 이어갈 수 있어. 생활비와 수술 준비를 어느 시기에 할지까지 생각해야 수민에게 맞는 계획이 돼.",
+        "next": false
+      },
+      {
+        "letter": "B",
+        "icon": "",
+        "text": "지금 정할 수 있는 일도 일단 미룰래.",
+        "feedback": "앞으로의 일정이 모두 정해지기를 기다리면 당장 준비할 수 있는 일도 늦어져. 졸업 다음의 첫걸음부터 생각해 보자.",
+        "next": false
+      },
+      {
+        "letter": "C",
+        "icon": "",
+        "text": "취업을 준비하고, 일하면서 다음 계획을 세울래.",
+        "feedback": "수민은 졸업 후 부트캠프에서 취업을 준비할 계획이야. 먼저 2~3년 일하며 돈을 모으고, 이후 수술과 재활 시기에 학사 공부를 이어가고 싶어 해.",
+        "next": true
+      }
+    ]
+  },
+  {
+    "title": "앞으로도 내 길을 찾는다면",
+    "image": "images/scene-7.jpg",
+    "sourceImage": "게임_07_나의_다음_길_game.jpg",
+    "imageAlt": "앞으로도 내 길을 찾는다면 - 수민의 이야기",
+    "caption": "10 · 앞으로도 내 길을 찾는다면",
+    "paragraphs": [
+      "수민은 재활할 시간을 마련했고, 지원할 수 있는 대학을 찾았고, 낯선 컴퓨터 앞에서는 기초부터 다시 배웠어. 막히면 살펴보고, 한 번에 풀리지 않으면 방법을 바꿔 다시 해 봤지.\n앞으로 또 고민이 생긴다면 수민에게 어떤 말을 건네고 싶어?"
+    ],
+    "prompt": "앞으로 또 고민이 생긴다면 수민에게 어떤 말을 건네고 싶어?",
+    "choices": [
+      {
+        "letter": "A",
+        "icon": "",
+        "text": "무엇이 문제인지부터 차근차근 살펴보자.",
+        "feedback": "‘응. 어디에서 막혔는지 알면 지금 할 수 있는 일도 보이더라.’",
+        "next": true
+      },
+      {
+        "letter": "B",
+        "icon": "",
+        "text": "한 번에 안 풀려도, 방법을 바꿔 다시 해보자.",
+        "feedback": "‘그래. 자판부터 배울 때도 그렇게 하나씩 해냈어. 다음에도 한 번 더 해볼 거야.’",
+        "next": true
+      },
+      {
+        "letter": "C",
+        "icon": "",
+        "text": "지금의 너에게 맞는 길을 직접 골라보자.",
+        "feedback": "‘좋아. 내가 중요하게 생각하는 일을 기억하면 다음 방향도 고를 수 있을 것 같아.’",
+        "next": true
+      }
+    ]
+  }
 ];
 
 const $ = (id) => document.getElementById(id);
@@ -171,10 +390,10 @@ let readerText = "";
 let readerPages = [];
 let readerIndex = 0;
 let resizeFrame = 0;
-const CHAPTER_INTRO_MS = 3500;
+const CHAPTER_INTRO_MS = 2500;
 let chapterTimer = null;
 let chapterRun = 0;
-const ENDING_TITLE_MS = 3000;
+const ENDING_FADE_MS = 900;
 const GAME_END_RISE_MS = 3000;
 let endingStage = "idle";
 let endingTimer = null;
@@ -409,7 +628,7 @@ function renderReaderPage() {
   } else if (readerMode === "feedback") {
     const choice = SCENES[currentScene].choices[selectedChoice];
     $("reader-next").textContent = choice.next
-      ? (currentScene === SCENES.length - 1 ? "엔딩 보기 ▶" : "다음 장면 ▶")
+      ? (currentScene === SCENES.length - 1 ? "수민의 이야기 보기 ▶" : "다음 장면 ▶")
       : "다시 선택 ↻";
   } else {
     $("reader-next").textContent = currentScene === -1 ? "이야기 시작 ▶" : "선택하기 ▶";
@@ -435,7 +654,7 @@ function buildChoices(scene) {
     button.className = "choice-button";
     const number = document.createElement("span");
     number.className = "choice-number";
-    number.textContent = String(index + 1);
+    number.textContent = choice.letter;
     number.setAttribute("aria-hidden", "true");
     const icon = document.createElement("span");
     icon.className = "choice-icon";
@@ -444,8 +663,9 @@ function buildChoices(scene) {
     const text = document.createElement("span");
     text.className = "choice-text";
     text.textContent = choice.text;
-    button.append(number, icon, text);
-    button.setAttribute("aria-keyshortcuts", String(index + 1));
+    if (choice.icon) button.append(number, icon, text);
+    else button.append(number, text);
+    button.setAttribute("aria-keyshortcuts", `${index + 1} ${choice.letter}`);
     button.addEventListener("click", () => selectChoice(index));
     return button;
   });
@@ -455,7 +675,7 @@ function buildChoices(scene) {
 function renderScene() {
   const scene = getScene();
   selectedChoice = null;
-  $("chapter-label").textContent = currentScene === -1 ? "프롤로그 · 이야기의 시작" : `CHAPTER ${String(currentScene + 1).padStart(2, "0")} / 07`;
+  $("chapter-label").textContent = currentScene === -1 ? "프롤로그 · 이야기의 시작" : `CHAPTER ${String(currentScene + 1).padStart(2, "0")} / ${String(SCENES.length).padStart(2, "0")}`;
   $("story-title").textContent = scene.title;
   $("scene-caption").textContent = scene.caption;
   $("speaker-name").textContent = "이야기";
@@ -577,9 +797,10 @@ function cancelEndingSequence() {
 function setEndingStage(stage) {
   endingStage = stage;
   $("ending-screen").dataset.stage = stage;
-  $("ending-intro").hidden = stage !== "intro";
-  $("ending-player").hidden = stage !== "video";
-  $("ending-video").hidden = stage !== "video";
+  const retainVideoFrame = ["video", "invitation", "fade", "finale", "complete"].includes(stage);
+  $("ending-player").hidden = !retainVideoFrame;
+  $("ending-video").hidden = !retainVideoFrame;
+  $("ending-video").controls = stage === "video";
   $("ending-invitation").hidden = stage !== "invitation";
   $("ending-finale").hidden = stage !== "finale" && stage !== "complete";
   $("ending-restart").hidden = stage !== "complete";
@@ -588,29 +809,22 @@ function setEndingStage(stage) {
 function showEnding() {
   cancelChapterTransition();
   cancelEndingSequence();
-  const run = endingRun;
   phase = "ending";
   $("ending-finale").classList.remove("is-rising", "is-complete");
   $("ending-recovery").hidden = true;
   $("ending-media-note").textContent = "";
-  setEndingStage("intro");
+  setEndingStage("video");
   showScreen("ending-screen");
-  focusElement($("ending-title"));
-  $("game-status").textContent = "수민의 이야기. 잠시 후 엔딩 영상이 시작돼요.";
   const video = $("ending-video");
   video.muted = !soundEnabled;
   video.src = MEDIA.endingVideo;
   if (MEDIA.endingPoster) video.poster = MEDIA.endingPoster;
   video.load();
-  // 제목을 보여주는 동안 영상을 미리 불러온 후 바로 재생합니다.
-  endingTimer = setTimeout(() => {
-    if (run !== endingRun || phase !== "ending") return;
-    endingTimer = null;
-    setEndingStage("video");
-    backgroundMusic.pause();
-    Object.values(soundEffects).forEach((audio) => audio.pause());
-    attemptEndingPlayback();
-  }, ENDING_TITLE_MS);
+  focusElement(video);
+  backgroundMusic.pause();
+  Object.values(soundEffects).forEach((audio) => audio.pause());
+  // 마지막 결과의 '수민의 이야기 보기' 버튼을 누른 동작에서 바로 재생합니다.
+  attemptEndingPlayback();
 }
 
 function showVideoRecovery(message) {
@@ -646,6 +860,8 @@ function attemptEndingPlayback() {
 
 function finishEndingVideo() {
   if (phase !== "ending" || endingStage !== "video") return;
+  // src/currentTime을 바꾸지 않아 마지막 영상 프레임이 그대로 남습니다.
+  $("ending-video").pause();
   setEndingStage("invitation");
   $("ending-recovery").hidden = true;
   resumeMusic();
@@ -656,20 +872,26 @@ function finishEndingVideo() {
 function showGameEnd() {
   if (phase !== "ending" || endingStage !== "invitation") return;
   const run = endingRun;
-  setEndingStage("finale");
-  $("ending-finale").classList.remove("is-complete");
-  $("ending-finale").classList.add("is-rising");
-  focusElement($("game-end-title"));
-  $("game-status").textContent = "Game End.";
+  setEndingStage("fade");
+  $("ending-screen").style.setProperty("--ending-fade-duration", `${ENDING_FADE_MS}ms`);
+  $("game-status").textContent = "여정을 마무리합니다.";
   endingTimer = setTimeout(() => {
-    if (run !== endingRun || phase !== "ending" || endingStage !== "finale") return;
-    endingTimer = null;
-    $("ending-finale").classList.remove("is-rising");
-    $("ending-finale").classList.add("is-complete");
-    setEndingStage("complete");
-    focusElement($("ending-restart"));
-    $("game-status").textContent = "게임 다시 시작하기 버튼으로 새로운 여정을 시작할 수 있어요.";
-  }, GAME_END_RISE_MS);
+    if (run !== endingRun || phase !== "ending" || endingStage !== "fade") return;
+    setEndingStage("finale");
+    $("ending-finale").classList.remove("is-complete");
+    $("ending-finale").classList.add("is-rising");
+    focusElement($("game-end-title"));
+    $("game-status").textContent = "Game End.";
+    endingTimer = setTimeout(() => {
+      if (run !== endingRun || phase !== "ending" || endingStage !== "finale") return;
+      endingTimer = null;
+      $("ending-finale").classList.remove("is-rising");
+      $("ending-finale").classList.add("is-complete");
+      setEndingStage("complete");
+      focusElement($("ending-restart"));
+      $("game-status").textContent = "게임 다시 시작하기 버튼으로 새로운 여정을 시작할 수 있어요.";
+    }, GAME_END_RISE_MS);
+  }, ENDING_FADE_MS);
 }
 
 function restart() {
@@ -784,9 +1006,9 @@ document.addEventListener("keydown", (event) => {
     else goBack();
     return;
   }
-  if (phase === "choice" && /^[123]$/.test(event.key)) {
+  if (phase === "choice" && /^[123abc]$/i.test(event.key)) {
     event.preventDefault();
-    selectChoice(Number(event.key) - 1);
+    selectChoice(/^[123]$/.test(event.key) ? Number(event.key) - 1 : event.key.toUpperCase().charCodeAt(0) - 65);
   } else if (phase === "narrative") {
     const interactive = event.target.closest("button, input, select, textarea, a, video");
     if (event.key === "ArrowRight" || ((event.key === " " || event.key === "Enter") && !interactive)) {

@@ -104,7 +104,7 @@ main { position: relative; overflow: hidden; }
 .chapter-divider { display: flex; align-items: center; justify-content: center; gap: 20px; width: min(260px, 70%); color: #ebcc8d; font-size: 18px; }
 .chapter-divider::before, .chapter-divider::after { content: ""; flex: 1; height: 1px; background: #ebcc8d66; }
 #chapter-intro-title { font-size: clamp(25px, 4.2vw, 58px); font-weight: 750; line-height: 1.55; letter-spacing: -.035em; }
-.chapter-screen.is-presenting .chapter-card { animation: chapter-reveal var(--chapter-intro-duration, 3500ms) ease-in-out both; }
+.chapter-screen.is-presenting .chapter-card { animation: chapter-reveal var(--chapter-intro-duration, 2500ms) ease-in-out both; }
 @keyframes chapter-reveal {
   0% { opacity: 0; transform: translateY(12px); }
   22%, 76% { opacity: 1; transform: translateY(0); }
@@ -112,10 +112,12 @@ main { position: relative; overflow: hidden; }
 }
 .cinematic-card { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; padding: 24px; text-align: center; }
 .cinematic-star { font-size: 30px; color: #eaca88; }
-#ending-title { font-size: clamp(38px, 7vw, 100px); font-weight: 800; line-height: 1.35; letter-spacing: -.04em; }
 .cinematic-card > p { font-size: clamp(16px, 2vw, 23px); color: #e3e8d6; line-height: 1.7; }
 .ending-player { position: absolute; inset: 0; background: #000; }
 .ending-player video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
+.ending-screen[data-stage="fade"] .ending-player::after, .ending-screen[data-stage="finale"] .ending-player::after, .ending-screen[data-stage="complete"] .ending-player::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: #0b1c14; opacity: .88; }
+.ending-screen[data-stage="fade"] .ending-player::after { animation: ending-dim var(--ending-fade-duration, 900ms) ease-in both; }
+@keyframes ending-dim { from { opacity: 0; } to { opacity: .88; } }
 .ending-recovery { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 24px; padding: 24px; background: #07140edb; text-align: center; }
 .ending-recovery p { max-width: 520px; color: #fff9e8; font-size: 18px; line-height: 1.8; }
 .cinematic-button { max-width: 100%; min-height: 58px; padding: 15px 27px; background: #f1d48e; color: #203b2c; border-color: #ab8d4a; font-size: clamp(17px, 2vw, 24px); }
@@ -123,6 +125,7 @@ main { position: relative; overflow: hidden; }
 .journey-button { min-height: 88px; padding: 24px 38px; border-radius: 12px; font-size: clamp(21px, 3vw, 36px); line-height: 1.5; }
 .ending-screen[data-stage="invitation"], .ending-screen[data-stage="finale"], .ending-screen[data-stage="complete"] { color: var(--ink); background: #d8d9b9; }
 #ending-invitation, .ending-finale { inset: clamp(10px, 2.5vw, 30px); border: 3px solid #7b8c66; border-radius: 15px; background: var(--cream); box-shadow: 0 4px 22px #152c2620, inset 0 0 0 3px #fffdf5; }
+#ending-invitation { top: auto; padding: clamp(16px, 3dvh, 28px); gap: 12px; }
 #ending-invitation .cinematic-star { color: #9c6d24; }
 #journey-together, #ending-restart { background: var(--green); color: #fffdf3; border-color: #142c21; border-radius: 8px; }
 #journey-together:hover, #ending-restart:hover { background: var(--green-dark); }
@@ -166,10 +169,10 @@ dialog p { margin: 16px 0 25px; font-size: 16px; line-height: 1.75; }
   .tool-button { min-height: 34px; padding: 5px 8px; font-size: 12px; }
   #fullscreen-button span, .sound-label { display: none; }
   #sound-button { min-width: 34px; justify-content: center; font-size: 18px; }
-  .journey-header { padding: 0 12px; height: 32px; }
-  .journey-header .eyebrow { font-size: 10px; letter-spacing: .02em; }
-  .journey-progress { gap: 5px; }
-  .journey-progress li { width: 17px; height: 17px; font-size: 9px; }
+  .journey-header { padding: 0 12px; height: 32px; gap: 8px; }
+  .journey-header .eyebrow { font-size: 9px; letter-spacing: .02em; }
+  .journey-progress { gap: 3px; }
+  .journey-progress li { width: 15px; height: 15px; font-size: 9px; }
   .scene-heading { top: 10px; left: 10px; max-width: calc(100% - 20px); padding: 8px 12px; border-radius: 8px; }
   .scene-heading p { font-size: 10px; margin-bottom: 2px; }
   .scene-heading h1 { font-size: 19px; }
@@ -231,7 +234,6 @@ dialog p { margin: 16px 0 25px; font-size: 16px; line-height: 1.75; }
   .welcome-hint { display: none; }
   .cinematic-card { gap: 14px; padding: 14px; }
   .ending-finale { gap: 0; }
-  #ending-title { font-size: 42px; }
   #game-end-title { font-size: clamp(42px, 12dvh, 68px); }
   #ending-restart { margin-top: 14px; min-height: 42px; padding: 8px 20px; font-size: 17px; }
   .journey-button { min-height: 64px; padding: 15px 24px; font-size: 24px; }
