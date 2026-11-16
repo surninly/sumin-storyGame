@@ -12,7 +12,7 @@
  */
 const MEDIA = {
   welcomeImage: "",
-  endingVideo: "videos/sumin-ending.mp4?v=web-1",
+  endingVideo: "videos/수민_자기소개_엔딩영상_v2.2.mp4",
   endingPoster: "", // 선택 사항: 엔딩 영상의 미리보기 이미지
 };
 
